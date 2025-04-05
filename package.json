@@ -4,5 +4,8 @@
   "description": "Genshin API downloader",
   "main": "src/app.js",
   "author": "Junizfr",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
 }
