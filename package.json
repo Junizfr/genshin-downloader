@@ -1,0 +1,8 @@
+{
+  "name": "genshin-downloader",
+  "version": "1.0.0",
+  "description": "Genshin API downloader",
+  "main": "src/app.js",
+  "author": "Junizfr",
+  "license": "MIT"
+}
