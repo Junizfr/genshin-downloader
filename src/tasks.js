@@ -8,7 +8,7 @@ export default {
     const characters = []
     for (const character of data) {
       if (character.startsWith('traveler-')) continue
-      characters.push(character)
+      characters.push(character.replace('-', ''))
     }
     filesystem.write('characters.json', characters)
     console.log(`Importation de ${characters.length} personnages`)
