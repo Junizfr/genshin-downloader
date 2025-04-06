@@ -1,10 +1,9 @@
 import api from './functions/api.js';
-import app from './app.js';
 import filesystem from './functions/filesystem.js';
 
 export default {
   setupCharacters: async () => {
-    const data = await api.get(app.charactersURL);
+    const data = await api.get(process.env.GENSHIN_CHARACTERS);
     const characters = [];
     for (const character of data) {
       if (character.startsWith('traveler-')) continue;

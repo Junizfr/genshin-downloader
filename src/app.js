@@ -1,11 +1,9 @@
 import characters from './characters.js';
 import filesystem from './functions/filesystem.js';
 import tasks from './tasks.js';
+import dotenv from 'dotenv';
 
-export default {
-  charactersURL: 'https://genshin.jmp.blue/characters',
-  queryURL: 'https://genshin-db-api.vercel.app/api/v5/characters?query=',
-};
+dotenv.config();
 
 filesystem.setup();
 await tasks.setupCharacters();

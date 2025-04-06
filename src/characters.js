@@ -1,4 +1,3 @@
-import app from './app.js';
 import api from './functions/api.js';
 import downloader from './functions/downloader.js';
 import filesystem from './functions/filesystem.js';
@@ -10,7 +9,7 @@ export default {
     let imagesCount = 0;
 
     for (const character of characters) {
-      const data = await api.get(`${app.queryURL}${character}`);
+      const data = await api.get(`${process.env.GENSHIN_QUERY}${character}`);
 
       if (data.images && data.images.cover1) {
         const url = data.images.cover1;
