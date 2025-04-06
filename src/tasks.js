@@ -58,7 +58,7 @@ export default {
       },
     };
     filesystem.write('elements.json', data);
-    logger.log(`Importation de ${data.length} éléments`);
+    logger.log(`Importation de ${Object.keys(data).length} éléments`);
     return data;
   },
 };

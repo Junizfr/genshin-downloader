@@ -9,9 +9,9 @@ import elements from './items/elements.js';
 dotenv.config();
 
 filesystem.setup();
+await tasks.setupElements();
 await tasks.setupCharacters();
 await tasks.setupWeapons();
-await tasks.setupElements();
 
 await elements.downloads();
 await characters.downloads();
