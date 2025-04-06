@@ -21,6 +21,10 @@ export default {
     if (!fs.existsSync('dist/access.log')) {
       fs.writeFileSync('dist/access.log', '', 'utf-8');
     }
+    if (!fs.existsSync('dist/elements')) {
+      fs.mkdirSync('dist/elements');
+      fs.mkdirSync('dist/elements/images');
+    }
   },
 
   read: (path) => {

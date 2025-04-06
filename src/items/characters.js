@@ -18,7 +18,7 @@ export default {
         const url = data.images.cover1;
         const filename = `${data.name.replace(/\s+/g, '_')}.jpg`;
         try {
-          await downloader.image(url, filename, 'characters/images');
+          await downloader.characterImage(url, filename, 'characters/images');
           count++;
         } catch (error) {
           logger.error(`Erreur téléchargement image ${url} : ${error.message}`);

@@ -11,7 +11,7 @@ export default {
     for (const weapon of weapons) {
       const data = await api.get(`${process.env.GENSHIN_WEAPONS}/${weapon}`);
       filesystem.write(`weapons/${weapon.replace('-', '_')}.json`, data);
-      await downloader.weaponsImages(data.name);
+      await downloader.weaponImage(data.name);
       count++;
     }
     logger.log(`Téléchargement de ${count} armes`);

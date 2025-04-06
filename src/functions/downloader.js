@@ -6,7 +6,7 @@ import logger from '../utils/logger.js';
 
 export default {
   // Fonction pour télécharger une image avec https.get
-  image: async (url, name, dir) => {
+  characterImage: async (url, name, dir) => {
     return new Promise((resolve, reject) => {
       const lowerName = name.toLowerCase();
       const filePath = path.join('dist', `${dir}/${lowerName}`);
@@ -31,7 +31,7 @@ export default {
   },
 
   // Fonction pour télécharger l'image depuis un site en analysant le HTML avec cheerio
-  weaponsImages: async (name) => {
+  weaponImage: async (name) => {
     try {
       const response = await fetch(
         `${process.env.GENSHIN_WIKI}/${name.replace(' ', '_')}`
@@ -82,7 +82,52 @@ export default {
       const buffer = await res.arrayBuffer(); // Utiliser arrayBuffer() pour récupérer l'image
       fs.writeFileSync(outputLocationPath, Buffer.from(buffer)); // Correction ici (Buffer.from)
     } catch (error) {
-      logger.error(`Erreur lors du téléchargement de l'image: ${error}`);
+      logger.error("Erreur lors du téléchargement de l'image :", error);
+    }
+  },
+
+  elementImage: async (name) => {
+    try {
+      const response = await fetch(`${process.env.GENSHIN_WIKI}/${name}`);
+      const html = await response.text();
+      const $ = cheerio.load(html);
+      $('img').each(async (index, element) => {
+        const imgSrc = $(element).attr('src');
+        const imageName = $(element).attr('data-image-name');
+        const url = String(imgSrc);
+        const title = String(imageName);
+        if (
+          url.includes('http') &&
+          title.includes('Element') &&
+          !url.includes('scale-to-width-down')
+        ) {
+          const outputLocationPath = path.join(
+            'dist',
+            'elements',
+            'images',
+            `${title.replace('Element ', '').toLowerCase()}`
+          );
+
+          // Résoudre l'URL complète si l'image est en URL relative
+          const baseUrl = new URL(process.env.GENSHIN_WIKI + '/' + name);
+          const fullImgUrl = new URL(imgSrc, baseUrl).href;
+
+          // Télécharger l'image
+          const res = await fetch(fullImgUrl);
+
+          if (!res.ok) {
+            logger.error(
+              `Erreur HTTP lors du téléchargement de l'image: ${res.statusText}`
+            );
+            return;
+          }
+
+          const buffer = await res.arrayBuffer(); // Utiliser arrayBuffer() pour récupérer l'image
+          fs.writeFileSync(outputLocationPath, Buffer.from(buffer)); // Correction ici (Buffer.from)
+        }
+      });
+    } catch (error) {
+      logger.error(`Erreur lors du téléchargement de l'image ${error.message}`);
     }
   },
 };
