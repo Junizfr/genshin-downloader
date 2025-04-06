@@ -12,6 +12,12 @@ export default {
     if (!fs.existsSync('dist/characters/images')) {
       fs.mkdirSync('dist/characters/images');
     }
+    if (!fs.existsSync('dist/weapons')) {
+      fs.mkdirSync('dist/weapons');
+    }
+    if (!fs.existsSync('dist/weapons/images')) {
+      fs.mkdirSync('dist/weapons/images');
+    }
   },
 
   read: (path) => {
@@ -23,7 +29,7 @@ export default {
   write: (file, data) => {
     let filePath = `dist/${file}`;
 
-    if (file.startsWith('characters/')) {
+    if (!file.startsWith('dist/')) {
       filePath = path.join('dist', file);
     } else {
       filePath = path.join('dist', file);

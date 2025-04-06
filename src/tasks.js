@@ -13,4 +13,15 @@ export default {
     console.log(`✅ Importation de ${characters.length} personnages`);
     return characters;
   },
+
+  setupWeapons: async () => {
+    const data = await api.get(process.env.GENSHIN_WEAPONS);
+    const weapons = [];
+    for (const weapon of data) {
+      weapons.push(weapon);
+    }
+    filesystem.write('weapons.json', weapons);
+    console.log(`✅ Importation de ${weapons.length} armes`);
+    return weapons;
+  },
 };
