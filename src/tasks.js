@@ -25,4 +25,40 @@ export default {
     logger.log(`Importation de ${weapons.length} armes`);
     return weapons;
   },
+
+  setupElements: async () => {
+    const data = {
+      anemo: {
+        name: 'Anemo',
+        icon: 'anemo.png',
+      },
+      cryo: {
+        name: 'Cryo',
+        icon: 'cryo.png',
+      },
+      dendro: {
+        name: 'Dendro',
+        icon: 'dendro.png',
+      },
+      electro: {
+        name: 'Electro',
+        icon: 'electro.png',
+      },
+      geo: {
+        name: 'Geo',
+        icon: 'geo.png',
+      },
+      hydro: {
+        name: 'Hydro',
+        icon: 'hydro.png',
+      },
+      pyro: {
+        name: 'Pyro',
+        icon: 'pyro.png',
+      },
+    };
+    filesystem.write('elements.json', data);
+    logger.log(`Importation de ${Object.keys(data).length} éléments`);
+    return data;
+  },
 };
