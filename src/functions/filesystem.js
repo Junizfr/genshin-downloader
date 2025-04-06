@@ -9,6 +9,9 @@ export default {
     if (!fs.existsSync('dist/characters')) {
       fs.mkdirSync('dist/characters');
     }
+    if (!fs.existsSync('dist/characters/images')) {
+      fs.mkdirSync('dist/characters/images');
+    }
   },
 
   read: (path) => {
@@ -20,11 +23,9 @@ export default {
   write: (file, data) => {
     let filePath = `dist/${file}`;
 
-    // Si le fichier commence par 'characters', on évite de le placer dans 'dist/characters/'
     if (file.startsWith('characters/')) {
-      filePath = path.join('dist', file); // Place dans dist sans 'characters/'
+      filePath = path.join('dist', file);
     } else {
-      // Si ce n'est pas un fichier 'characters', on le place directement dans dist
       filePath = path.join('dist', file);
     }
 

@@ -11,7 +11,7 @@ export default {
       characters.push(character.replace('-', ''));
     }
     filesystem.write('characters.json', characters);
-    console.log(`Importation de ${characters.length} personnages`);
+    console.log(`✅ Importation de ${characters.length} personnages`);
     return characters;
   },
 };

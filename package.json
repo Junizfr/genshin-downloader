@@ -9,7 +9,7 @@
   "scripts": {
     "commit": "cz",
     "lint": "eslint .",
-    "start": "rm -Rf dist && eslint . --fix && node src/app.js"
+    "start": "eslint . --fix && node src/app.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
