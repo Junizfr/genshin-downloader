@@ -1,5 +1,6 @@
 import api from './functions/api.js';
 import filesystem from './functions/filesystem.js';
+import logger from './utils/logger.js';
 
 export default {
   setupCharacters: async () => {
@@ -10,7 +11,18 @@ export default {
       characters.push(character.replace('-', ''));
     }
     filesystem.write('characters.json', characters);
-    console.log(`✅ Importation de ${characters.length} personnages`);
+    logger.log(`Importation de ${characters.length} personnages`);
     return characters;
+  },
+
+  setupWeapons: async () => {
+    const data = await api.get(process.env.GENSHIN_WEAPONS);
+    const weapons = [];
+    for (const weapon of data) {
+      weapons.push(weapon);
+    }
+    filesystem.write('weapons.json', weapons);
+    logger.log(`Importation de ${weapons.length} armes`);
+    return weapons;
   },
 };
