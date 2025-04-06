@@ -1,0 +1,41 @@
+name: Test and Auto Merge
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test
+
+  auto-merge:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+
+    steps:
+      - name: Auto-merge PR
+        uses: "peter-evans/enable-pull-request-automerge@v3"
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
