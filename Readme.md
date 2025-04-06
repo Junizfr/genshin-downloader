@@ -9,6 +9,7 @@
 # Table of contents
 
 - [Getting Started](#getting-started)
+- [Tasks](#tasks)
 
 ## Getting Started
 
@@ -36,3 +37,12 @@ To start in development mode :
 ```bash
 yarn start
 ```
+
+## Tasks
+
+| Nom            | Description                             | Statut                                               |
+| -------------- | --------------------------------------- | ---------------------------------------------------- |
+| **Characters** | (Téléchargement informations et images) | ![Done](https://img.shields.io/badge/DONE-green.svg) |
+| **Elements**   | (Téléchargement informations et images) | ![Todo](https://img.shields.io/badge/TODO-red.svg)   |
+| **Enemies**    | (Téléchargement informations et images) | ![Todo](https://img.shields.io/badge/TODO-red.svg)   |
+| **Weapons**    | (Téléchargement informations et images) | ![Done](https://img.shields.io/badge/DONE-green.svg) |
