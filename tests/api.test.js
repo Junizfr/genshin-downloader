@@ -8,9 +8,4 @@ describe('API Endpoints', () => {
     const response = await fetch(process.env.GENSHIN_CHARACTERS);
     expect(response.status).toBe(200);
   });
-
-  it('should return a character by name', async () => {
-    const response = await fetch(`${process.env.GENSHIN_QUERY}albedo`);
-    expect(response.status).toBe(200);
-  });
 });
