@@ -1,0 +1,29 @@
+name: Auto PR develop
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up GitHub CLI
+        uses: cli/cli-action@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        run: |
+          gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
+          git fetch origin
+          git checkout main
+          git pull origin main
+          git checkout develop
+          git merge main --no-ff
+          git push origin develop
+          gh pr create --base main --head develop --title "Merge develop into main" --body "This PR merges the develop branch into main."
