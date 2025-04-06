@@ -1,13 +1,11 @@
 name: Test and Auto Merge
 
 on:
+  push:
+    branches: [develop, main]
+
   pull_request:
-    branches:
-      - main
-    types:
-      - opened
-      - synchronize
-      - reopened
+    branches: [develop, main]
 
 jobs:
   test:
@@ -20,7 +18,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: "18.x"
+          cache: ""
 
       - name: Install deps
         run: yarn install
