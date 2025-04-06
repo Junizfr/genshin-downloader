@@ -2,6 +2,7 @@ import https from 'https';
 import path from 'path';
 import fs from 'fs';
 import * as cheerio from 'cheerio';
+import logger from '../utils/logger.js';
 
 export default {
   // Fonction pour télécharger une image avec https.get
@@ -50,7 +51,7 @@ export default {
       const imgSrc = imgElement.attr('src');
 
       if (!imgSrc) {
-        console.error(`❌ Aucune image trouvée pour ${name}.`);
+        await logger.error(`Aucune image trouvée pour ${name}.`);
         return;
       }
 
@@ -72,7 +73,7 @@ export default {
       const res = await fetch(fullImgUrl);
 
       if (!res.ok) {
-        console.error(
+        logger.error(
           `Erreur HTTP lors du téléchargement de l'image: ${res.statusText}`
         );
         return;
@@ -81,7 +82,7 @@ export default {
       const buffer = await res.arrayBuffer(); // Utiliser arrayBuffer() pour récupérer l'image
       fs.writeFileSync(outputLocationPath, Buffer.from(buffer)); // Correction ici (Buffer.from)
     } catch (error) {
-      console.error("Erreur lors du téléchargement de l'image :", error);
+      logger.error(`Erreur lors du téléchargement de l'image: ${error}`);
     }
   },
 };

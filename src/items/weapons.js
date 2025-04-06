@@ -1,6 +1,7 @@
 import api from '../functions/api.js';
 import filesystem from '../functions/filesystem.js';
 import downloader from '../functions/downloader.js';
+import logger from '../utils/logger.js';
 
 export default {
   downloads: async () => {
@@ -13,6 +14,6 @@ export default {
       await downloader.weaponsImages(data.name);
       count++;
     }
-    console.log(`✅ Téléchargement de ${count} armes`);
+    logger.log(`Téléchargement de ${count} armes`);
   },
 };

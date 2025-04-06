@@ -1,6 +1,7 @@
 import api from '../functions/api.js';
 import downloader from '../functions/downloader.js';
 import filesystem from '../functions/filesystem.js';
+import logger from '../utils/logger.js';
 
 export default {
   downloads: async () => {
@@ -20,14 +21,12 @@ export default {
           await downloader.image(url, filename, 'characters/images');
           count++;
         } catch (error) {
-          console.error(
-            `Erreur téléchargement image ${url} : ${error.message}`
-          );
+          logger.error(`Erreur téléchargement image ${url} : ${error.message}`);
         }
       }
 
       filesystem.write(`characters/${character}.json`, data);
     }
-    console.log(`✅ Téléchargement de ${count} personnages`);
+    logger.log(`Téléchargement de ${count} personnages`);
   },
 };

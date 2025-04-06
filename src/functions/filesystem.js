@@ -18,6 +18,9 @@ export default {
     if (!fs.existsSync('dist/weapons/images')) {
       fs.mkdirSync('dist/weapons/images');
     }
+    if (!fs.existsSync('dist/access.log')) {
+      fs.writeFileSync('dist/access.log', '', 'utf-8');
+    }
   },
 
   read: (path) => {
