@@ -26,28 +26,3 @@ jobs:
 
       - name: Run tests
         run: yarn test
-
-  auto-merge:
-    needs: test
-    runs-on: ubuntu-latest
-    if: ${{ success() }}
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.17.1
-        run: yarn install
-      - name: Commit changes
-        id: commit
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "Junizfr"
-          git config user.email "<fr.darktrooper08@gmail.com>"
-          git pull origin main
-          git add .
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git commit -m "chore (automated): merge develop into main"
-            git push origin main
-          fi
