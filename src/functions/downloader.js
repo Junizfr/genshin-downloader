@@ -33,9 +33,10 @@ export default {
   // Fonction pour télécharger l'image depuis un site en analysant le HTML avec cheerio
   weaponImage: async (name) => {
     try {
-      const response = await fetch(
-        `${process.env.GENSHIN_WIKI}/${name.replace(' ', '_')}`
-      );
+      const filename = name
+        .replace(/\b(Of|The)\b/g, (match) => match.toLowerCase())
+        .replace(/ /g, '_');
+      const response = await fetch(`${process.env.GENSHIN_WIKI}/${filename}`);
       const html = await response.text();
 
       // Analyser le HTML avec cheerio
@@ -51,7 +52,7 @@ export default {
       const imgSrc = imgElement.attr('src');
 
       if (!imgSrc) {
-        await logger.error(`Aucune image trouvée pour ${name}.`);
+        await logger.error(`Aucune image trouvée pour ${filename}.`);
         return;
       }
 
@@ -62,11 +63,11 @@ export default {
         'dist',
         'weapons',
         'images',
-        `${name.replace(' ', '_')}.${fileExtension}`
+        `${filename}.${fileExtension}`
       );
 
       // Résoudre l'URL complète si l'image est en URL relative
-      const baseUrl = new URL(process.env.GENSHIN_WIKI + name);
+      const baseUrl = new URL(process.env.GENSHIN_WIKI + filename);
       const fullImgUrl = new URL(imgSrc, baseUrl).href;
 
       // Télécharger l'image
